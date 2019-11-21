@@ -127,5 +127,6 @@ const L10N = {
     'jpeg_quality_jpeg_quality_image': 'Calidad de JPEG para fotos (-1 ... 100)',
     'jpeg_quality_jpeg_quality_chroma': 'Calidad de JPEG para chroma-keying (-1 ... 100)',
     'jpeg_quality_jpeg_quality_thumb': 'Calidad de JPEG para thumbnails (-1 ... 100)',
-    'abort': 'Abortar'
+    'abort': 'Abortar',
+    'slideshow_pictureTime': 'Milisegundos se muestra una imagen en la presentación de diapositivas'
 }

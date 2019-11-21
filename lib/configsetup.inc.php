@@ -380,6 +380,12 @@ $configsetup = [
 			'placeholder' => 'd.m.Y - G:i',
 			'name' => 'gallery[date_format]',
 			'value' => $config['gallery']['date_format']
+		],
+		'pictureTime' => [
+			'type' => 'input',
+			'placeholder' => '3000',
+			'name' => 'slideshow_pictureTime',
+			'value' => $config['slideshow_pictureTime']
 		]
 	],
 	'mail' => [
