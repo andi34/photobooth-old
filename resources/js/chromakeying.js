@@ -189,6 +189,7 @@ function saveImageHandler(ev) {
         saveImage(() => {
             setTimeout(function () {
                 $('#save_mesg').removeClass('modal--show');
+                window.location.reload();
             }, 2000);
         });
     }, 1000);
