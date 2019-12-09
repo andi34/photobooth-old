@@ -33,6 +33,7 @@ $config['take_frame_path'] = '../resources/img/frames/frame.png';
 $config['chroma_keying'] = true;
 $config['use_collage'] = false;
 $config['continuous_collage'] = false;
+$config['collage_limit'] = null; // do not change, currently Collage consists only of 4 Pictures!
 $config['color_theme'] = 'default'; // possible values are default, blue-gray, or an array with the corresponding colors (e.g. ['primary' => '#fff', 'secondary'=>'#a1a1a1', 'font'=>'#000'])
 $config['background_image'] = null;
 $config['background_admin'] = null;

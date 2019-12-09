@@ -70,8 +70,6 @@ $config['print']['cmd'] = $cmds[$os]['print']['cmd'];
 $config['print']['msg'] = $cmds[$os]['print']['msg'];
 $config['colors'] = $colors['default'];
 
-$config['collage_limit'] = 4;
-
 $defaultConfig = $config;
 
 if (file_exists($my_config_file)) {
@@ -92,6 +90,10 @@ if (is_array($config['color_theme'])) {
     $config['colors'] = $colors[$config['color_theme']];
 } else {
     $config['colors'] = $colors['default'];
+}
+
+if (!isset($config['collage_limit'])) {
+    $config['collage_limit'] = '4';
 }
 
 if (!isset($config['background_image'])) {
