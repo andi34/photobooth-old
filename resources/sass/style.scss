@@ -69,6 +69,7 @@
     flex-grow: 1;
     max-width: 250px;
     margin: initial;
+    margin-left: 2px;
   }
   @media (max-width: 576px) {
     span {
@@ -141,8 +142,8 @@
 
 .homebtn {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 5px;
+  top: 5px;
   font-size: 14px;
   width: 130px;
 }
@@ -271,6 +272,8 @@ hr.small {
     text-align: center;
     padding: 1rem;
     text-transform: uppercase;
+    border: 0 none;
+    border-radius: 10px;
 
     .names {
       margin-top: 1rem;
