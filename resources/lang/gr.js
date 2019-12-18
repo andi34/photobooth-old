@@ -138,5 +138,6 @@ const L10N = {
     'jpeg_quality_jpeg_quality_chroma': 'Ποιότητα JPEG για chroma-keying (-1 ... 100)',
     'jpeg_quality_jpeg_quality_thumb': 'Ποιότητα JPEG για μικρογραφίες (-1 ... 100)',
     'abort': 'Αποβάλλω',
-    'dark_loader': 'Dark display while countdown'
+    'dark_loader': 'Dark display while countdown',
+    'gallery_pictureTime': 'Σε χιλιοστά του δευτερολέπτου μια εικόνα προβάλλεται στην παρουσίαση διαφανειών'
 }
