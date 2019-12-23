@@ -12,8 +12,8 @@ function greenToTransparency(imageIn, imageOut) {
             const color = imageIn.getIntColor(x, y);
             const hsv = MarvinColorModelConverter.rgbToHsv([color]);
 
-            if (hsv[0] >= 60 && hsv[0] <= 200 && hsv[1] >= 0.2 && hsv[2] >= 0.2) {
-                imageOut.setIntColor(x, y, 0, 127, 127, 127);
+            if (hsv[0] >= 90 && hsv[0] <= 200 && hsv[1] >= 0.5 && hsv[2] >= 0.5) {
+                imageOut.setIntColor(x, y, 0, 130, 130, 130);
             } else {
                 imageOut.setIntColor(x, y, color);
             }
@@ -30,9 +30,9 @@ function reduceGreen(image) {
             const color = image.getIntColor(x, y);
             const hsv = MarvinColorModelConverter.rgbToHsv([color]);
 
-            if (hsv[0] >= 60 && hsv[0] <= 130 && hsv[1] >= 0.15 && hsv[2] >= 0.15) {
-                if ((r * b) != 0 && (g * g) / (r * b) > 1.5) {
-                    image.setIntColor(x, y, 255, (r * 1.4), g, (b * 1.4));
+            if (hsv[0] >= 90 && hsv[0] <= 200 && hsv[1] >= 0.2 && hsv[2] >= 0.2) {
+                if ((r * b) != 0 && (g * g) / (r * b) > 1.4) {
+                    image.setIntColor(x, y, 255, (r * 1.5), g, (b * 1.5));
                 } else {
                     image.setIntColor(x, y, 255, (r * 1.2), g, (b * 1.2));
                 }
