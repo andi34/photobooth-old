@@ -163,6 +163,11 @@ $configsetup = [
 			'type' => 'checkbox',
 			'name' => 'previewFromCam',
 			'value' => $config['previewFromCam']
+		],
+		'previewCamTakesPic' => [
+			'type' => 'checkbox',
+			'name' => 'previewCamTakesPic',
+			'value' => $config['previewCamTakesPic']
 		]
 	],
 	'jpeg_quality' => [

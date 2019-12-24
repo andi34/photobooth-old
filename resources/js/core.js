@@ -170,6 +170,11 @@ const photoBooth = (function () {
         }
 
         if (config.previewFromCam) {
+            if (config.previewCamTakesPic) {
+                const canvas = document.getElementById('canvas');
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            }
             public.stopVideo();
         }
 
@@ -182,46 +187,60 @@ const photoBooth = (function () {
             data.file = currentCollageFile;
             data.collageNumber = nextCollageNumber;
         }
-
-        jQuery.post('api/takePic.php', data).done(function (result) {
-            console.log('took picture', result);
-
-            // reset filter (selection) after picture was taken
-            imgFilter = config.default_imagefilter;
-            $('#mySidenav .activeSidenavBtn').removeClass('activeSidenavBtn');
-            $('#' + imgFilter).addClass('activeSidenavBtn');
-
-            if (result.error) {
-                public.errorPic(result);
-            } else if (result.success === 'collage' && (result.current + 1) < result.limit) {
-                currentCollageFile = result.file;
-                nextCollageNumber = result.current + 1;
-
-                $('.spinner').hide();
-                $('.loading').empty();
-
-                if (config.continuous_collage) {
-                    setTimeout(() => {
-                        public.thrill('collage');
-                    }, 1000);
-                } else {
-                    $('<a class="btn" href="#">' + L10N.nextPhoto + '</a>').appendTo('.loading').click((ev) => {
-                        ev.preventDefault();
-
-                        public.thrill('collage');
-                    });
-                    $('.loading').append($('<a class="btn" style="margin-left:2px" href="./">').text(L10N.abort));
+        if (config.previewCamTakesPic) {
+            var photo = canvas.toDataURL('image/jpeg');
+            $.ajax({
+                method: 'POST',
+                url: 'api/savePic.php',
+                data: {
+                    photo: photo
                 }
-            } else {
-                currentCollageFile = '';
-                nextCollageNumber = 0;
+            });
+            $('.spinner').hide();
+            $('.loading').empty();
+            $('.loading').append($('<a class="btn" href="./">').text(L10N.reload));
 
-                public.processPic(photoStyle, result);
-            }
+        } else {
+            jQuery.post('api/takePic.php', data).done(function (result) {
+                console.log('took picture', result);
 
-        }).fail(function (xhr, status, result) {
-            public.errorPic(result);
-        });
+                // reset filter (selection) after picture was taken
+                imgFilter = config.default_imagefilter;
+                $('#mySidenav .activeSidenavBtn').removeClass('activeSidenavBtn');
+                $('#' + imgFilter).addClass('activeSidenavBtn');
+
+                if (result.error) {
+                    public.errorPic(result);
+                } else if (result.success === 'collage' && (result.current + 1) < result.limit) {
+                    currentCollageFile = result.file;
+                    nextCollageNumber = result.current + 1;
+
+                    $('.spinner').hide();
+                    $('.loading').empty();
+
+                    if (config.continuous_collage) {
+                    setTimeout(() => {
+                            public.thrill('collage');
+                        }, 1000);
+                    } else {
+                        $('<a class="btn" href="#">' + L10N.nextPhoto + '</a>').appendTo('.loading').click((ev) => {
+                            ev.preventDefault();
+
+                            public.thrill('collage');
+                        });
+                        $('.loading').append($('<a class="btn" style="margin-left:2px" href="./">').text(L10N.abort));
+                    }
+                } else {
+                    currentCollageFile = '';
+                    nextCollageNumber = 0;
+
+                    public.processPic(photoStyle, result);
+                }
+
+            }).fail(function (xhr, status, result) {
+                public.errorPic(result);
+            });
+        }
     }
 
     // Show error Msg and reset

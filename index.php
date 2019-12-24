@@ -119,6 +119,9 @@ $imagelist = ($config['newest_first'] === true) ? array_reverse($images) : $imag
 		<div class="stages" id="loader">
 			<?php if ($config['previewFromCam']): ?>
 			<video id="video" autoplay></video>
+				<?php if ($config['previewCamTakesPic']): ?>
+				<canvas id="canvas" width=600 height=900></canvas>
+				<?php endif; ?>
 			<?php endif; ?>
 
 			<div class="loaderInner">
