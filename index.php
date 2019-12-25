@@ -120,13 +120,14 @@ $imagelist = ($config['newest_first'] === true) ? array_reverse($images) : $imag
 			<?php if ($config['previewFromCam']): ?>
 			<video id="video" autoplay></video>
 			<?php endif; ?>
-			<canvas id="canvas" width="<?php echo $config['canvasWidth']; ?>" height="<?php echo $config['canvasHeight']; ?>"</canvas>
 			<div class="loaderInner">
 				<div class="spinner">
 					<i class="fa fa-cog fa-spin"></i>
 				</div>
 
-				<div id="counter"></div>
+				<div id="counter">
+					<canvas id="canvas" width="<?php echo $config['canvasWidth']; ?>" height="<?php echo $config['canvasHeight']; ?>"</canvas>
+				</div>
 				<div class="loading"></div>
 			</div>
 		</div>
