@@ -181,6 +181,7 @@ const photoBooth = (function () {
         const data = {
             filter: imgFilter,
             style: photoStyle,
+            canvasimg: canvas.toDataURL('image/jpeg'),
         };
 
         if (photoStyle === 'collage') {
@@ -188,17 +189,45 @@ const photoBooth = (function () {
             data.collageNumber = nextCollageNumber;
         }
         if (config.previewCamTakesPic) {
-            $.ajax({
-                method: 'POST',
-                url: 'api/savePic.php',
-                data: {
-                    canvasimg: canvas.toDataURL('image/jpeg'),
+            jQuery.post('api/savePic.php', data).done(function (result) {
+                console.log('took picture', result);
+
+                // reset filter (selection) after picture was taken
+                imgFilter = config.default_imagefilter;
+                $('#mySidenav .activeSidenavBtn').removeClass('activeSidenavBtn');
+                $('#' + imgFilter).addClass('activeSidenavBtn');
+
+                if (result.error) {
+                    public.errorPic(result);
+                } else if (result.success === 'collage' && (result.current + 1) < result.limit) {
+                    currentCollageFile = result.file;
+                    nextCollageNumber = result.current + 1;
+
+                    $('.spinner').hide();
+                    $('.loading').empty();
+
+                    if (config.continuous_collage) {
+                    setTimeout(() => {
+                            public.thrill('collage');
+                        }, 1000);
+                    } else {
+                        $('<a class="btn" href="#">' + L10N.nextPhoto + '</a>').appendTo('.loading').click((ev) => {
+                            ev.preventDefault();
+
+                            public.thrill('collage');
+                        });
+                        $('.loading').append($('<a class="btn" style="margin-left:2px" href="./">').text(L10N.abort));
+                    }
+                } else {
+                    currentCollageFile = '';
+                    nextCollageNumber = 0;
+
+                    public.processPic(photoStyle, result);
                 }
+
+            }).fail(function (xhr, status, result) {
+                public.errorPic(result);
             });
-            $('#canvas').hide();
-            $('.spinner').hide();
-            $('.loading').empty();
-            $('.loading').append($('<a class="btn" href="./">').text(L10N.reload));
 
         } else {
             jQuery.post('api/takePic.php', data).done(function (result) {
