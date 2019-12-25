@@ -205,6 +205,7 @@ const photoBooth = (function () {
 
                     $('.spinner').hide();
                     $('.loading').empty();
+                    $('#canvas').hide();
 
                     if (config.continuous_collage) {
                     setTimeout(() => {
@@ -277,6 +278,7 @@ const photoBooth = (function () {
         setTimeout(function () {
             $('.spinner').hide();
             $('.loading').empty()
+            $('#canvas').hide();
             loader.addClass('error');
             $('.loading').append($('<p>').text(L10N.error));
             if (config.show_error_messages || config.dev) {
