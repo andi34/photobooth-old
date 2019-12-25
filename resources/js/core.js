@@ -15,7 +15,10 @@ const photoBooth = (function () {
                 height: 480,
                 facingMode: 'user',
             }
-        };
+        },
+        video = $('#video').get(0),
+        canvas = document.getElementById('canvas'),
+        context = canvas.getContext('2d');
 
     let timeOut,
         nextCollageNumber = 0,
@@ -108,7 +111,6 @@ const photoBooth = (function () {
         getMedia.call(navigator.mediaDevices, webcamConstraints)
             .then(function (stream) {
                 $('#video').show();
-                const video = $('#video').get(0);
                 video.srcObject = stream;
                 public.stream = stream;
             })
@@ -170,9 +172,7 @@ const photoBooth = (function () {
         }
 
         if (config.previewFromCam) {
-            if (config.previewCamTakesPic) {
-                const canvas = document.getElementById('canvas');
-                const context = canvas.getContext('2d');
+            if (config.previewCamTakesPic && !config.dev) {
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
             }
             public.stopVideo();
@@ -188,7 +188,7 @@ const photoBooth = (function () {
             data.file = currentCollageFile;
             data.collageNumber = nextCollageNumber;
         }
-        if (config.previewCamTakesPic) {
+        if (config.previewCamTakesPic && config.previewFromCam && !config.dev) {
             jQuery.post('api/savePic.php', data).done(function (result) {
                 console.log('took picture', result);
 
@@ -208,7 +208,7 @@ const photoBooth = (function () {
                     $('#canvas').hide();
 
                     if (config.continuous_collage) {
-                    setTimeout(() => {
+                        setTimeout(() => {
                             public.thrill('collage');
                         }, 1000);
                     } else {
@@ -249,7 +249,7 @@ const photoBooth = (function () {
                     $('.loading').empty();
 
                     if (config.continuous_collage) {
-                    setTimeout(() => {
+                        setTimeout(() => {
                             public.thrill('collage');
                         }, 1000);
                     } else {
