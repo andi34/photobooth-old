@@ -188,14 +188,14 @@ const photoBooth = (function () {
             data.collageNumber = nextCollageNumber;
         }
         if (config.previewCamTakesPic) {
-            var photo = canvas.toDataURL('image/jpeg');
             $.ajax({
                 method: 'POST',
                 url: 'api/savePic.php',
                 data: {
-                    photo: photo
+                    canvasimg: canvas.toDataURL('image/jpeg'),
                 }
             });
+            $('#canvas').hide();
             $('.spinner').hide();
             $('.loading').empty();
             $('.loading').append($('<a class="btn" href="./">').text(L10N.reload));
