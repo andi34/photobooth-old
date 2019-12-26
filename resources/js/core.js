@@ -11,14 +11,11 @@ const photoBooth = (function () {
         webcamConstraints = {
             audio: false,
             video: {
-                width: 720,
-                height: 480,
                 facingMode: 'user',
             }
         },
-        video = $('#video').get(0),
-        canvas = document.getElementById('canvas'),
-        context = canvas.getContext('2d');
+        videoView = $('#video--view').get(0),
+        videoSensor = document.querySelector('#video--sensor');
 
     let timeOut,
         nextCollageNumber = 0,
@@ -110,8 +107,8 @@ const photoBooth = (function () {
 
         getMedia.call(navigator.mediaDevices, webcamConstraints)
             .then(function (stream) {
-                $('#video').show();
-                video.srcObject = stream;
+                $('#video--view').show();
+                videoView.srcObject = stream;
                 public.stream = stream;
             })
             .catch(function (error) {
@@ -123,7 +120,7 @@ const photoBooth = (function () {
         if (public.stream) {
             const track = public.stream.getTracks()[0];
             track.stop();
-            $('#video').hide();
+            $('#video--view').hide();
         }
     }
 
@@ -173,7 +170,9 @@ const photoBooth = (function () {
 
         if (config.previewFromCam) {
             if (config.previewCamTakesPic && !config.dev) {
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                videoSensor.width = videoView.videoWidth;
+                videoSensor.height = videoView.videoHeight;
+                videoSensor.getContext('2d').drawImage(videoView, 0, 0);
             }
             public.stopVideo();
         }
@@ -181,7 +180,7 @@ const photoBooth = (function () {
         const data = {
             filter: imgFilter,
             style: photoStyle,
-            canvasimg: canvas.toDataURL('image/jpeg'),
+            canvasimg: videoSensor.toDataURL('image/jpeg'),
         };
 
         if (photoStyle === 'collage') {

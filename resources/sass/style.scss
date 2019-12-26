@@ -333,12 +333,15 @@ hr.small {
   color: #fff;
 }
 
-#video {
-  position: absolute;
-  top: 50%;
-  margin-top: -240px;
-  margin-left: -360px;
-  left: 50%;
+#video #video--view #video--sensor {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+#video--sensor {
+  transform: scaleX(-1);
 }
 
 .chroma-control-bar {
