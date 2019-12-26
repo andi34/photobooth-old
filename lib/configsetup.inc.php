@@ -168,18 +168,6 @@ $configsetup = [
 			'type' => 'checkbox',
 			'name' => 'previewCamTakesPic',
 			'value' => $config['previewCamTakesPic']
-		],
-		'canvasWidth' => [
-			'type' => 'input',
-			'name' => 'canvasWidth',
-			'placeholder' => $defaultConfig['canvasWidth'],
-			'value' => $config['canvasWidth']
-		],
-		'canvasHeight' => [
-			'type' => 'input',
-			'name' => 'canvasHeight',
-			'placeholder' => $defaultConfig['canvasHeight'],
-			'value' => $config['canvasHeight']
 		]
 	],
 	'jpeg_quality' => [
