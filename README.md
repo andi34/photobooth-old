@@ -73,7 +73,7 @@ If you like my work and like to keep me motivated you can buy me a coconut water
 
 ### :information_source: Donators Early Access
 
-Donators get early access for 3 months to new features/options i am adding.
+Donators who donated 5€ or more get early access to new features/options i am adding (please leave a message at donation telling your email address).
 
 ### :mortar_board: Tutorial
 
