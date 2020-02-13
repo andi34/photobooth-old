@@ -176,5 +176,6 @@ const L10N = {
     'slideshow_refreshTime': 'Actualiser la page après X secondes',
     'slideshow_pictureTime': 'Millisecondes une image est affichée',
     'randomPicture': 'Afficher des images aléatoires',
-    'use_thumbs': 'Use thumbnails for slideshow'
+    'use_thumbs': 'Use thumbnails for slideshow',
+    'preserve_exif_data': 'Preserve EXIF data'
 }
