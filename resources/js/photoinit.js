@@ -49,6 +49,13 @@ function initPhotoSwipeFromDOM (gallerySelector) {
         openPhotoSwipe(index);
     };
 
+    const getFileName = function (path) {
+        String splitRegex = Pattern.quote(System.getProperty("file.separator"));
+        String[] splittedFileName = path.split(splitRegex);
+        String simpleFileName = splittedFileName[splittedFileName.length-1];
+        return simpleFileName;
+    }
+
     const openPhotoSwipe = function (index) {
         const pswpElement = $('.pswp').get(0);
         const items = parseThumbnailElements(gallerySelector);
@@ -129,7 +136,7 @@ function initPhotoSwipeFromDOM (gallerySelector) {
         });
 
         gallery.listen('afterChange', function() {
-            const img = gallery.currItem.src.split(Pattern.quote(File.separator)).pop();
+            const img = getFileName(gallery.currItem.src);
 
             $('.pswp__button--download').attr({
                 href: 'api/download.php?image=' + img,
@@ -167,8 +174,7 @@ function initPhotoSwipeFromDOM (gallerySelector) {
             pswpQR.removeClass('qr-active').fadeOut('fast');
         } else {
             pswpQR.empty();
-            let img = gallery.currItem.src;
-            img = img.split(Pattern.quote(File.separator)).pop();
+            const img = getFileName(gallery.currItem.src);
 
             $('<img>').attr('src', 'api/qrcode.php?filename=' + img).appendTo(pswpQR);
 
@@ -181,7 +187,7 @@ function initPhotoSwipeFromDOM (gallerySelector) {
         e.preventDefault();
         e.stopPropagation();
 
-        const img = gallery.currItem.src.split(Pattern.quote(File.separator)).pop();
+        const img = getFileName(gallery.currItem.src);
 
         photoBooth.printImage(img, () => {
             gallery.close();
@@ -193,7 +199,7 @@ function initPhotoSwipeFromDOM (gallerySelector) {
         e.preventDefault();
         e.stopPropagation();
 
-        const img = gallery.currItem.src.split(Pattern.quote(File.separator)).pop();
+        const img = getFileName(gallery.currItem.src);
 
         if (config.chroma_keying) {
             location = 'chromakeying.php?filename=' + encodeURI(img);
@@ -204,7 +210,7 @@ function initPhotoSwipeFromDOM (gallerySelector) {
         e.preventDefault();
         e.stopPropagation();
 
-        const img = gallery.currItem.src.split(Pattern.quote(File.separator)).pop();
+        const img = getFileName(gallery.currItem.src);
 
         photoBooth.toggleMailDialog(img);
     });
